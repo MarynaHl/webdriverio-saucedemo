@@ -15,8 +15,7 @@ export const config = {
         ui: 'bdd',
         timeout: 60000
     },
-    services: ['chromedriver'],
-    before: async function (capabilities, specs) {
+    services: ['selenium-standalone'],    before: async function (capabilities, specs) {
         await browser.setWindowSize(1920, 1080);
     }
 };
