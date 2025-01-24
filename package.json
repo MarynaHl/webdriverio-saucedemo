@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:cucumber": "wdio wdio.cucumber.conf.js",
     "wdio": "wdio run ./wdio.conf.js"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/MarynaHl/webdriverio-saucedemo#readme",
   "devDependencies": {
     "@wdio/cli": "^9.6.0",
+    "@wdio/cucumber-framework": "^9.6.4",
     "@wdio/local-runner": "^9.6.0",
     "@wdio/mocha-framework": "^9.5.0",
     "@wdio/spec-reporter": "^9.5.0"
