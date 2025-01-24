@@ -5,6 +5,7 @@ class CheckoutPage {
     get continueBtn()     { return $('#continue'); }
     get finishBtn()       { return $('#finish'); }
     get backHomeBtn()     { return $('#back-to-products'); }
+    get completeHeader()  { return $('h2.complete-header'); }
 
     async fillCheckoutForm(first, last, postal) {
         await this.firstNameField.setValue(first);
@@ -22,6 +23,14 @@ class CheckoutPage {
 
     async clickBackHome() {
         await this.backHomeBtn.click();
+    }
+
+    async getCompleteHeaderText() {
+        return this.completeHeader.getText();
+    }
+
+    async isCompleteHeaderDisplayed() {
+        return this.completeHeader.isDisplayed();
     }
 }
 
