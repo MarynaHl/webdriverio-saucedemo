@@ -6,6 +6,7 @@ describe('Valid Login', () => {
         await loginPage.open();
         await loginPage.login('standard_user', 'secret_sauce');
 
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+        const isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
     });
 });
