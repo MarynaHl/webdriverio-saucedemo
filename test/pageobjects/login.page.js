@@ -13,6 +13,14 @@ class LoginPage {
         await this.passwordField.setValue(password);
         await this.loginBtn.click();
     }
+
+    async getErrorText() {
+        return this.errorMsg.getText();
+    }
+
+    async isErrorDisplayed() {
+        return this.errorMsg.isDisplayed();
+    }
 }
 
 export default new LoginPage();
