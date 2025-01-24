@@ -6,36 +6,37 @@ describe('Social media links', () => {
     before(async () => {
         await loginPage.open();
         await loginPage.login('standard_user', 'secret_sauce');
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+        const isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
     });
 
     it('should open Twitter link in a new tab', async () => {
-        await footerPage.clickTwitter();
-        await browser.pause(2000);
-        await browser.switchWindow('twitter.com');
-        const url = await browser.getUrl();
+        await footerPage.openSocialLink('twitter');
+        const url = await footerPage.getCurrentUrl();
         expect(url).toContain('twitter.com');
-        await browser.closeWindow();
-        await browser.switchWindow('saucedemo.com');
+
+        await footerPage.closeTabAndSwitchBack();
+        const finalUrl = await footerPage.getCurrentUrl();
+        expect(finalUrl).toContain('saucedemo.com');
     });
 
     it('should open Facebook link in a new tab', async () => {
-        await footerPage.clickFacebook();
-        await browser.pause(2000);
-        await browser.switchWindow('facebook.com');
-        const url = await browser.getUrl();
+        await footerPage.openSocialLink('facebook');
+        const url = await footerPage.getCurrentUrl();
         expect(url).toContain('facebook.com');
-        await browser.closeWindow();
-        await browser.switchWindow('saucedemo.com');
+
+        await footerPage.closeTabAndSwitchBack();
+        const finalUrl = await footerPage.getCurrentUrl();
+        expect(finalUrl).toContain('saucedemo.com');
     });
 
     it('should open LinkedIn link in a new tab', async () => {
-        await footerPage.clickLinkedIn();
-        await browser.pause(2000);
-        await browser.switchWindow('linkedin.com');
-        const url = await browser.getUrl();
+        await footerPage.openSocialLink('linkedin');
+        const url = await footerPage.getCurrentUrl();
         expect(url).toContain('linkedin.com');
-        await browser.closeWindow();
-        await browser.switchWindow('saucedemo.com');
+
+        await footerPage.closeTabAndSwitchBack();
+        const finalUrl = await footerPage.getCurrentUrl();
+        expect(finalUrl).toContain('saucedemo.com');
     });
 });

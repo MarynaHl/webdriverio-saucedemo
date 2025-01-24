@@ -5,8 +5,10 @@ describe('Login with invalid password', () => {
         await loginPage.open();
         await loginPage.login('standard_user', 'wrong_password');
 
-        await expect(await loginPage.errorMsg).toBeDisplayed();
-        await expect(await loginPage.errorMsg.getText())
-            .toContain('Username and password do not match');
+        const isError = await loginPage.isErrorDisplayed();
+        const errorText = await loginPage.getErrorText();
+
+        expect(isError).toBe(true);
+        expect(errorText).toContain('Username and password do not match');
     });
 });

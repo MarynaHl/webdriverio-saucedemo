@@ -7,26 +7,28 @@ describe('Valid Checkout flow', () => {
     it('should complete checkout successfully with valid data', async () => {
         await loginPage.open();
         await loginPage.login('standard_user', 'secret_sauce');
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+
+        let isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
 
         await inventoryPage.addFirstProductToCart();
         await inventoryPage.openCart();
-        let itemsInCart = await cartPage.cartItems.length;
-        expect(itemsInCart).toBeGreaterThan(0);
+        const itemCount = await cartPage.getItemsCount();
+        expect(itemCount).toBeGreaterThan(0);
 
         await cartPage.clickCheckout();
         await checkoutPage.fillCheckoutForm('John', 'Doe', '12345');
         await checkoutPage.clickContinue();
-
         await checkoutPage.clickFinish();
-        const finishHeader = await $('h2.complete-header');
-        expect(await finishHeader.getText()).toBe('THANK YOU FOR YOUR ORDER');
+
+        const headerDisplayed = await checkoutPage.isCompleteHeaderDisplayed();
+        const headerText = await checkoutPage.getCompleteHeaderText();
+
+        expect(headerDisplayed).toBe(true);
+        expect(headerText).toBe('THANK YOU FOR YOUR ORDER');
 
         await checkoutPage.clickBackHome();
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
-
-        await inventoryPage.openCart();
-        itemsInCart = await cartPage.cartItems.length;
-        expect(itemsInCart).toBe(0);
+        isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
     });
 });

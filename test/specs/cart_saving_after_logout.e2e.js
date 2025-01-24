@@ -2,11 +2,13 @@ import loginPage from '../pageobjects/login.page.js';
 import inventoryPage from '../pageobjects/inventory.page.js';
 import cartPage from '../pageobjects/cart.page.js';
 
-describe('Saving the cart after logout', () => {
-    it('should keep the product in the cart after logout and re-login (according to test case)', async () => {
+describe('Saving the cart after logout (should FAIL on real site)', () => {
+    it('should keep product in the cart after logout and re-login', async () => {
+
         await loginPage.open();
         await loginPage.login('standard_user', 'secret_sauce');
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+        let isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
 
         await inventoryPage.addFirstProductToCart();
 
@@ -14,11 +16,12 @@ describe('Saving the cart after logout', () => {
         await inventoryPage.logout();
 
         await loginPage.login('standard_user', 'secret_sauce');
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+        isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
 
         await inventoryPage.openCart();
         const isCartHasItem = await cartPage.isAnyProductInCart();
 
-        await expect(isCartHasItem).toBe(true);
+        expect(isCartHasItem).toBe(true);
     });
 });

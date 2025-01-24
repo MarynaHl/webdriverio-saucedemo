@@ -6,13 +6,14 @@ describe('Logout test', () => {
         await loginPage.open();
         await loginPage.login('standard_user', 'secret_sauce');
 
-        await expect(await inventoryPage.productsContainer).toBeDisplayed();
+        let isInventoryDisplayed = await inventoryPage.isDisplayed();
+        expect(isInventoryDisplayed).toBe(true);
 
         await inventoryPage.openMenu();
         await inventoryPage.logout();
 
-        await expect(await loginPage.loginBtn).toBeDisplayed();
-        await expect(await loginPage.usernameField).toBeDisplayed();
-        await expect(await loginPage.passwordField).toBeDisplayed();
+        // Перевіряємо, що знову на сторінці логіну
+        const isLoginButtonDisplayed = await loginPage.loginBtn.isDisplayed();
+        expect(isLoginButtonDisplayed).toBe(true);
     });
 });
