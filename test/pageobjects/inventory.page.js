@@ -6,8 +6,8 @@ class InventoryPage {
     get cartIcon()          { return $('.shopping_cart_link'); }
     get firstAddToCartBtn() { return $('button[id*="add-to-cart"]'); }
 
-    async addFirstProductToCart() {
-        await this.firstAddToCartBtn.click();
+    async isDisplayed() {
+        return this.productsContainer.isDisplayed();
     }
 
     async openMenu() {
@@ -16,6 +16,10 @@ class InventoryPage {
 
     async logout() {
         await this.logoutLink.click();
+    }
+
+    async addFirstProductToCart() {
+        await this.firstAddToCartBtn.click();
     }
 
     async openCart() {
